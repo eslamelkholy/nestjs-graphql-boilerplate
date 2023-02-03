@@ -1,8 +1,10 @@
 import { Injectable } from '@nestjs/common';
 import { User } from 'src/entities/user.entity';
+import { UserRepository } from '../repositories/user.repository';
 
 @Injectable()
 export class UserService {
+  constructor(private userRepository: UserRepository) {}
   public createUser(): User {
     return new User();
   }
@@ -16,12 +18,9 @@ export class UserService {
   }
 
   async getUsers(): Promise<User[]> {
-    const user = new User();
-    user.id = 1;
-    user.name = 'eslam';
-    user.email = 'eslamelkholy444@gmail.com';
+    const users = await this.userRepository.findAll();
 
-    return [user];
+    return users;
   }
 
   public deleteUser(): User {

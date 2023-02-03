@@ -7,6 +7,7 @@ import { AppService } from './services/app.service';
 import { UserResolver } from './resolvers/user.resolver';
 import { UserService } from './services/user.service';
 import { ConfigModule } from '@nestjs/config';
+import { TypeOrmModule } from '@nestjs/typeorm';
 
 @Module({
   imports: [
@@ -16,6 +17,16 @@ import { ConfigModule } from '@nestjs/config';
       debug: process.env.NODE_ENV === 'development',
       playground: process.env.NODE_ENV === 'development',
       autoSchemaFile: join(process.cwd(), 'src/schema.gql'),
+    }),
+    TypeOrmModule.forRoot({
+      type: 'mysql',
+      host: 'localhost',
+      port: 3306,
+      username: 'root',
+      password: 'root',
+      database: 'test',
+      entities: [],
+      synchronize: true,
     }),
   ],
   controllers: [AppController],

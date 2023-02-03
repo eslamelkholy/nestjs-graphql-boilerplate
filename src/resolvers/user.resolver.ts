@@ -6,7 +6,7 @@ import { UserService } from 'src/services/user.service';
 export class UserResolver {
   constructor(private userService: UserService) {}
 
-  @Query((returns) => [User])
+  @Query((returns) => [User], { name: 'FindAllUsers' })
   users(): Promise<User[]> {
     return this.userService.getUsers();
   }
